@@ -10,22 +10,36 @@ A simple CRUD (Create, Read, Update, Delete) application built with FastAPI, Mon
 - ✅ Environment variable configuration
 - ✅ Automatic API documentation with Swagger
 - ✅ Input validation and error handling
-- ✅ Clean project structure
+- ✅ Clean project structure with layered architecture
+- ✅ Repository pattern for data access
+- ✅ Service layer for business logic
+- ✅ Custom exception handling
 
 ## Project Structure
 
 ```
-Assignment1/
+Python_First_Assignment/
 ├── app/
 │   ├── main.py              # FastAPI application
 │   ├── database/
 │   │   └── connection.py    # MongoDB connection
 │   ├── models/
-│   │   └── user.py         # Pydantic models
-│   └── routes/
-│       └── users.py        # User CRUD routes
+│   │   ├── user.py         # User Pydantic models
+│   │   └── auth_models.py  # Auth Pydantic models
+│   ├── repositories/
+│   │   ├── user_repository.py  # User data access layer
+│   │   └── auth_repository.py  # Auth data access layer
+│   ├── services/
+│   │   ├── user_service.py     # User business logic
+│   │   └── auth_service.py     # Auth business logic
+│   ├── routes/
+│   │   ├── user_route.py       # User API endpoints
+│   │   └── auth_routes.py      # Auth API endpoints
+│   ├── exceptions/
+│   │   └── custom_exceptions.py # Custom exception classes
+│   └── utils/
+│       └── auth.py         # Authentication utilities
 ├── .env                     # Environment variables
-├── .env.example            # Environment variables template
 ├── requirements.txt
 └── README.md
 ```
@@ -137,11 +151,24 @@ The API returns appropriate HTTP status codes:
 - `404`: Not Found
 - `422`: Unprocessable Entity (Pydantic validation)
 
+## Architecture
+
+This application follows a layered architecture pattern:
+
+- **Routes Layer**: Handles HTTP requests and responses
+- **Service Layer**: Contains business logic and validation
+- **Repository Layer**: Manages data access and database operations
+- **Models Layer**: Defines data structures and validation
+- **Utils Layer**: Contains utility functions and helpers
+- **Exceptions Layer**: Custom exception classes
+
 ## Development
 
 To extend this application:
 
 1. Add new models in `app/models/`
-2. Create new routes in `app/routes/`
-3. Include new routers in `app/main.py`
-4. Update database operations in respective route files
+2. Create repository classes in `app/repositories/`
+3. Implement business logic in `app/services/`
+4. Create API endpoints in `app/routes/`
+5. Include new routers in `app/main.py`
+6. Add custom exceptions in `app/exceptions/`

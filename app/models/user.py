@@ -7,6 +7,16 @@ class UserModel(BaseModel):
     name: str = Field(..., min_length=1, max_length=100, example="John Doe")
     email: str = Field(..., pattern=r'^[^@]+@[^@]+\.[^@]+$', example="john@example.com")
     age: int = Field(..., ge=1, le=120, example=30)
+    password: str = Field(..., min_length=6)
+
+    class Config:
+        populate_by_name = True
+        
+class UserResponse(BaseModel):
+    id: Optional[str] = Field(default=None, alias="_id")
+    name: str
+    email: str
+    age: int
 
     class Config:
         populate_by_name = True
