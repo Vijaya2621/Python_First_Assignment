@@ -6,3 +6,9 @@ class EmailAlreadyExistsError(Exception):
 
 class InvalidUserIdError(Exception):
     pass
+
+class ProductNotFoundError(Exception):
+    pass
+
+class InvalidProductIdError(Exception):
+    pass

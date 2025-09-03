@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 from database.connection import connect_to_mongo, close_mongo_connection
 from routes.user_route import router as user_router
 from routes.auth_routes import router as auth_router
+from routes.product_route import router as product_router
 import logging
 
 # Load environment variables
@@ -33,6 +34,7 @@ app = FastAPI(
 # Include routers
 app.include_router(auth_router, prefix="/api/v1/auth", tags=["authentication"])
 app.include_router(user_router, prefix="/api/v1", tags=["users"])
+app.include_router(product_router, prefix="/api/v1", tags=["products"])
 
 @app.get("/")
 async def root():

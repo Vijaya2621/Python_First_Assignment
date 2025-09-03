@@ -46,3 +46,11 @@ class UserRepository:
             "email": email,
             "_id": {"$ne": ObjectId(user_id)}
         }) is not None
+
+    def user_exists_by_id(self, user_id: str) -> bool:
+        if not ObjectId.is_valid(user_id):
+            return False
+        return self.collection.count_documents({"_id": ObjectId(user_id)}) > 0
+
+    def user_exists_by_email(self, email: str) -> bool:
+        return self.collection.count_documents({"email": email}) > 0
